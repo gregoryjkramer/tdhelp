@@ -1,0 +1,7 @@
+run = "cd AppOwnsDataReactClient && npm install && npm run dev -- --host 0.0.0.0"
+
+[nix]
+channel = "stable-24_05"
+
+[env]
+# Ensure node is available

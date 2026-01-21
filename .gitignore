@@ -1,0 +1,9 @@
+node_modules
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+.env.local
+dist/
+*.zip

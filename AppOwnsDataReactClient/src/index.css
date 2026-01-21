@@ -1,0 +1,35 @@
+:root {
+  --bg-deep: #050505;
+  --bg-card: #0F0F0F;
+  --text-main: #EDEDED;
+  --text-muted: #888888;
+  --accent-orange: #FF4D00;
+  --accent-glow: rgba(255, 77, 0, 0.3);
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

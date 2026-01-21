@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Web API + Vite",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "dev: start api + client",
+      "program": "${workspaceFolder}/AppOwnsDataWebApi/bin/Debug/net6.0/AppOwnsDataWebApi.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/AppOwnsDataWebApi",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  ]
+}

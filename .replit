@@ -1,7 +1,12 @@
-run = "cd AppOwnsDataReactClient && npm install && npm run dev -- --host 0.0.0.0"
+run = "cd AppOwnsDataReactClient && npm install && npm run build && npx serve -s dist -l 3000"
 
 [nix]
 channel = "stable-24_05"
 
-[env]
-# Ensure node is available
+[deps]
+pkgs = [
+  "nodejs-20_x",
+  "nodePackages.typescript-language-server",
+  "yarn"
+]
+

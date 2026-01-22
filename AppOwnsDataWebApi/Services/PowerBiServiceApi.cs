@@ -33,8 +33,6 @@ namespace AppOwnsDataWebApi.Services
             workspaceId = Guid.Parse(configuration["Workspaces:0:WorkspaceId"]);
             reportId = Guid.Parse(configuration["Workspaces:0:ReportId"]);
             datasetId = configuration["Workspaces:0:DatasetId"];
-
-            pbiClient = CreatePowerBiClient();
         }
 
         private PowerBIClient CreatePowerBiClient()

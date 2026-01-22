@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/34d8f827-9bfa-4042-9d54-0bd76e1daab1/resourceGroups/webfrontend/providers/Microsoft.Web/sites/tdhelp",
+    "appService.deploySubpath": "AppOwnsDataWebApi"
+}

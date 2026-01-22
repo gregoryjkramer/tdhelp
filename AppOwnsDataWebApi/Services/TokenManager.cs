@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
 
@@ -9,7 +8,7 @@ namespace AppOwnsDataWebApi.Services
     {
         private string TenantId { get; }
         private string ClientId { get; }
-        private string CertificateThumbprint { get; }
+        private string ClientSecret { get; }
 
         private static string CachedToken { get; set; }
         private static DateTime CachedTokenExpires { get; set; }
@@ -18,7 +17,7 @@ namespace AppOwnsDataWebApi.Services
         {
             TenantId = configuration["ServicePrincipalApp:TenantId"];
             ClientId = configuration["ServicePrincipalApp:ClientId"];
-            CertificateThumbprint = configuration["ServicePrincipalApp:CertificateThumbprint"];
+            ClientSecret = configuration["ServicePrincipalApp:ClientSecret"];
         }
 
         public string GetAccessToken()
@@ -31,11 +30,9 @@ namespace AppOwnsDataWebApi.Services
 
         private void RefreshAccessToken()
         {
-            X509Certificate2 cert = LoadCertificateByThumbprint(CertificateThumbprint);
-
             IConfidentialClientApplication app =
                 ConfidentialClientApplicationBuilder.Create(ClientId)
-                .WithCertificate(cert)
+                .WithClientSecret(ClientSecret)
                 .WithAuthority($"https://login.microsoftonline.com/{TenantId}")
                 .Build();
 
@@ -45,20 +42,6 @@ namespace AppOwnsDataWebApi.Services
             CachedToken = token.AccessToken;
             CachedTokenExpires = token.ExpiresOn.DateTime.AddMinutes(-5);
         }
-
-        private X509Certificate2 LoadCertificateByThumbprint(string thumbprint)
-        {
-            using X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.ReadOnly);
-
-            foreach (var cert in store.Certificates)
-            {
-                if (cert.Thumbprint != null &&
-                    cert.Thumbprint.Equals(thumbprint, StringComparison.OrdinalIgnoreCase))
-                    return cert;
-            }
-
-            throw new Exception($"Certificate with thumbprint {thumbprint} not found.");
-        }
     }
 }
+

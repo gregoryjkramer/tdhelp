@@ -36,7 +36,7 @@ const PowerBIEmbed: React.FC = () => {
                 });
                 */
 
-                const apiUrl = import.meta.env.VITE_API_BASE_URL ?? "https://localhost:5001";
+                const apiUrl = import.meta.env.VITE_API_BASE_URL ?? "https://tdhelp-dqfjawbxfuf9f7ee.centralus-01.azurewebsites.net";
                 const workspaceId = import.meta.env.VITE_PBI_WORKSPACE_ID ?? DEFAULT_WORKSPACE_ID;
                 const targetReportId = import.meta.env.VITE_PBI_REPORT_ID ?? DEFAULT_REPORT_ID;
 

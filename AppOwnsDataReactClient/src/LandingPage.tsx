@@ -8,9 +8,10 @@ const LandingPage: React.FC = () => {
             <header>
                 <div className="container nav-content">
                     <div className="logo">TENACIOUS<span className="text-orange">DATA</span></div>
-                    <div>
+                    <nav style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                        <Link to="/demo" style={{ color: 'var(--text-muted)', fontSize: '0.95rem', letterSpacing: '0.02em', transition: 'color 0.3s' }}>Live Demo</Link>
                         <Link to="/app" className="btn btn-primary" style={{ padding: '0.8rem 1.5rem' }}>Login</Link>
-                    </div>
+                    </nav>
                 </div>
             </header>
 
@@ -32,7 +33,7 @@ const LandingPage: React.FC = () => {
                         </p>
                         <div className="hero-actions fade-in-up delay-2">
                             <Link to="/app" className="btn btn-primary">Start Transformation</Link>
-                            <a href="#learn" className="btn btn-outline">Explore The System</a>
+                            <Link to="/demo" className="btn btn-outline">Explore The System</Link>
                         </div>
                     </div>
                 </section>

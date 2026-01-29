@@ -7,6 +7,7 @@ import ReactDOM from "react-dom/client";
 // import App from "./App.tsx";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
+import FabricDemo from "./FabricDemo";
 import "./index.css";
 
 // import { msalConfig } from "./AuthConfig";
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     {
         path: "/app",
         element: <Dashboard />
+    },
+    {
+        path: "/demo",
+        element: <FabricDemo />
     }
 ]);
 

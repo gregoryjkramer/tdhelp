@@ -21,6 +21,8 @@ namespace AppOwnsDataShared.Models {
     public string DatabaseUserName { get; set; }
     public string DatabaseUserPassword { get; set; }
     public DateTime Created { get; set; }
+    public string PaymentStatus { get; set; } = "Pending";
+    public string MdkSessionId { get; set; }
   }
 
   public class User {

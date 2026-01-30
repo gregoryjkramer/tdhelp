@@ -34,6 +34,7 @@ namespace AppOwnsDataWebApi
             // our App-Owns-Data services
             services.AddScoped<TokenManager>();
             services.AddScoped<PowerBiServiceApi>();
+            services.AddScoped<MdkService>();
 
             // ❌ REMOVE Microsoft.Identity.Web user authentication for App-Owns-Data
             // services.AddMicrosoftIdentityWebApiAuthentication(Configuration, "ClientApp");

@@ -9,6 +9,7 @@ import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
 import FabricDemo from "./FabricDemo";
 import "./index.css";
+import "@moneydevkit/replit/mdk-styles.css";
 
 // import { msalConfig } from "./AuthConfig";
 

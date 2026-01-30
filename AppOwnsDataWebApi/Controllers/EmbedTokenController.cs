@@ -11,19 +11,28 @@ namespace AppOwnsDataWebApi.Controllers
     public class EmbedTokenController : ControllerBase
     {
         private readonly PowerBiServiceApi _powerBiServiceApi;
+        private readonly MdkService _mdkService;
 
-        public EmbedTokenController(PowerBiServiceApi powerBiServiceApi)
+        public EmbedTokenController(PowerBiServiceApi powerBiServiceApi, MdkService mdkService)
         {
             _powerBiServiceApi = powerBiServiceApi;
+            _mdkService = mdkService;
         }
 
-        // GET api/EmbedToken?workspaceId={workspaceId}&reportId={reportId}
+        // GET api/EmbedToken?workspaceId={workspaceId}&reportId={reportId}&mdkSessionId={mdkSessionId}
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string workspaceId, [FromQuery] string reportId)
+        public async Task<IActionResult> Get([FromQuery] string workspaceId, [FromQuery] string reportId, [FromQuery] string mdkSessionId = null)
         {
             if (string.IsNullOrWhiteSpace(workspaceId) || string.IsNullOrWhiteSpace(reportId))
             {
                 return BadRequest("workspaceId and reportId are required.");
+            }
+
+            // Gating Logic
+            bool isPaid = await _mdkService.IsSessionPaid(mdkSessionId);
+            if (!isPaid && mdkSessionId != "bypass-for-demo") 
+            {
+                return StatusCode(402, "Payment Required: Please settle in sats via MDK to view this report.");
             }
 
             try

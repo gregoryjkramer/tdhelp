@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as powerbi from 'powerbi-client';
 import axios from 'axios';
 import './FabricDemo.css';
+import PaymentWidget from "./components/PaymentWidget";
 
 const DEFAULT_WORKSPACE_ID = '3405b65d-7455-4ad5-ba0f-5db626cd8f3b';
 const DEFAULT_REPORT_ID = '67d62ff9-7478-47dd-812a-a5ac24a1166f';
@@ -11,18 +12,28 @@ const FabricDemo: React.FC = () => {
     const reportRef = useRef<HTMLDivElement | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
     useEffect(() => {
+        // Handle payment redirects
+        const params = new URLSearchParams(window.location.search);
+        const status = params.get('status');
+        if (status === 'success') {
+            setStatusMessage({ type: 'success', text: "Payment Successful! Your Empire just got stronger. ⚡" });
+        } else if (status === 'cancel') {
+            setStatusMessage({ type: 'error', text: "Payment cancelled. Keep building! 🛠️" });
+        }
+
         const loadReport = async () => {
             try {
                 setIsLoading(true);
                 setErrorMessage(null);
 
-                const apiUrl = import.meta.env.VITE_API_BASE_URL ?? 'https://tdhelp-dqfjawbxfuf9f7ee.centralus-01.azurewebsites.net';
+                const apiUrl = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5138';
                 const workspaceId = import.meta.env.VITE_FABRIC_WORKSPACE_ID ?? DEFAULT_WORKSPACE_ID;
                 const reportId = import.meta.env.VITE_FABRIC_REPORT_ID ?? DEFAULT_REPORT_ID;
 
-                const response = await axios.get(`${apiUrl}/api/EmbedToken`, {
+                const response = await axios.get(`${apiUrl}/api/Reports/embed-token`, {
                     params: { workspaceId, reportId },
                 });
 
@@ -96,6 +107,27 @@ const FabricDemo: React.FC = () => {
                             embedded with App-Owns-Data authentication. Explore sales revenue,
                             product performance, and geographic insights in real time.
                         </p>
+
+                        {/* Status Message */}
+                        {statusMessage && (
+                            <div className={`status-alert status-${statusMessage.type} fade-in`}>
+                                {statusMessage.text}
+                            </div>
+                        )}
+
+                        {/* Bitcoin Payment Action */}
+                        <div className="demo-actions fade-in-up">
+                            <div className="payment-card">
+                                <div className="payment-label">SOUND MONEY LAYER</div>
+                                <h3 className="payment-title">Support Tenacious Data</h3>
+                                <p className="payment-text">Fuel the development of world-class analytics. Pay a one-time listing fee in sats.</p>
+                                <PaymentWidget
+                                    title="Tenacious Data - Listing Fee"
+                                    description="Supporting the deployment of multi-tenant Fabric analytics."
+                                    amountSats={2100}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

@@ -11,9 +11,12 @@ import Typography from "@mui/material/Typography";
 const DEFAULT_WORKSPACE_ID = "3405b65d-7455-4ad5-ba0f-5db626cd8f3b";
 const DEFAULT_REPORT_ID = "67d62ff9-7478-47dd-812a-a5ac24a1166f";
 
-const PowerBIEmbed: React.FC = () => {
+interface PowerBIEmbedProps {
+    mdkSessionId?: string;
+}
+
+const PowerBIEmbed: React.FC<PowerBIEmbedProps> = ({ mdkSessionId }) => {
     const reportRef = useRef<HTMLDivElement | null>(null);
-    // const { instance, accounts } = useMsal();
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -23,19 +26,6 @@ const PowerBIEmbed: React.FC = () => {
                 setIsLoading(true);
                 setErrorMessage(null);
 
-                /*
-                const account = accounts[0];
-                if (!account) {
-                    setIsLoading(false);
-                    return;
-                }
-
-                const tokenResponse = await instance.acquireTokenSilent({
-                    ...PowerBiLoginRequest,
-                    account,
-                });
-                */
-
                 const apiUrl = import.meta.env.VITE_API_BASE_URL ?? "https://tdhelp-dqfjawbxfuf9f7ee.centralus-01.azurewebsites.net";
                 const workspaceId = import.meta.env.VITE_PBI_WORKSPACE_ID ?? DEFAULT_WORKSPACE_ID;
                 const targetReportId = import.meta.env.VITE_PBI_REPORT_ID ?? DEFAULT_REPORT_ID;
@@ -44,10 +34,8 @@ const PowerBIEmbed: React.FC = () => {
                     params: {
                         workspaceId,
                         reportId: targetReportId,
+                        mdkSessionId: mdkSessionId || "bypass-for-demo"
                     },
-                    // headers: {
-                    //    Authorization: `Bearer ${tokenResponse.accessToken}`,
-                    // },
                 });
 
                 const { embedToken, reportId, embedUrl } = response.data;

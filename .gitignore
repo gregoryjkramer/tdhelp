@@ -10,3 +10,6 @@ dist/
 appsettings.json
 publish/
 **/appsettings.json
+fabric-engine/
+FabricEmbedApi/
+nul
